@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ExportCSV from "./ExportCSV";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Home = () => {
     const [file, setFile] = useState(null);
@@ -35,12 +36,12 @@ const Home = () => {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/api/upload-csv", {
+            const response = await fetch(`${API_URL}/api/upload-csv`, {
                 method: "POST",
                 body: formData,
             });
 
-            console.log(response);
+            // console.log(response);
 
             const data = await response.json();
             setRequestId(data.request_id);
@@ -67,12 +68,12 @@ const Home = () => {
     return (
         <div>
             <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mt-6 mb-9">
-    🚀 Image Processing System  
-    <span className="block text-lg text-gray-600 mt-2">Optimize, Compress & Enhance Effortlessly</span>
-</h1>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 text-center mt-6 mb-9">
+                    🚀 Image Processing System
+                    <span className="block text-lg text-gray-600 mt-2">Optimize, Compress & Enhance Effortlessly</span>
+                </h1>
                 <div className="bg-white p-6 rounded-lg shadow-lg">
-                    
+
                     <h2 className="text-2xl font-bold mb-4">Upload CSV File</h2>
                     <form onSubmit={handleUpload} className="space-y-4">
                         <label className="border border-gray-300 p-2 rounded w-full flex items-center justify-between cursor-pointer bg-white hover:bg-gray-100">
@@ -85,15 +86,15 @@ const Home = () => {
                             />
                         </label>
                         <div className="flex justify-center items-center mt-4">
-    <button
-        type="submit"
-        className="bg-blue-500 text-white px-6 py-2 w-60 rounded hover:bg-blue-600 
+                            <button
+                                type="submit"
+                                className="bg-blue-500 text-white px-6 py-2 w-60 rounded hover:bg-blue-600 
                    disabled:bg-gray-400 disabled:cursor-not-allowed text-center"
-        disabled={loading}
-    >
-        {loading ? "Processing File. Please Wait..." : "Upload CSV"}
-    </button>
-</div>
+                                disabled={loading}
+                            >
+                                {loading ? "Processing File. Please Wait..." : "Upload CSV"}
+                            </button>
+                        </div>
 
 
 

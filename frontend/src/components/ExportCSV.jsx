@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { CSVLink } from "react-csv";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const ExportCSV = ({ request_id }) => {
+
     console.log("Received request_id:", request_id);
 
     const [csvData, setCsvData] = useState([]);
@@ -24,7 +26,9 @@ const ExportCSV = ({ request_id }) => {
         setError("");
 
         try {
-            const response = await fetch(`http://localhost:5000/api/request-status/${request_id}`);
+            // console.log(API_URL);
+
+            const response = await fetch(`${API_URL}/api/request-status/${request_id}`)
             if (!response.ok) {
                 throw new Error("Request not found or failed.");
             }
@@ -62,11 +66,10 @@ const ExportCSV = ({ request_id }) => {
                 <button
                     onClick={fetchAndPrepareCSV}
                     disabled={!request_id || loading}
-                    className={`px-6 py-3 rounded ${
-                        loading || !request_id
+                    className={`px-6 py-3 rounded ${loading || !request_id
                             ? "bg-gray-400 cursor-not-allowed"
                             : "bg-green-500 text-white hover:bg-green-600"
-                    }`}
+                        }`}
                 >
                     {loading ? "Fetching..." : "Prepare & Download CSV"}
                 </button>
