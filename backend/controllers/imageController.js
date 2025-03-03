@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import fs from 'fs'
 import csv from 'csv-parser'
 
-import Product from '../models/product.js';
+import Product from '../models/Product.js';
 import Request from '../models/Request.js';
 
 const compressImage = async (imageUrl) => {
